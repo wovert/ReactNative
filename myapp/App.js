@@ -11,7 +11,8 @@ import {
   StyleSheet,
   Text,
   Image,
-  View
+  View,
+  TextInput
 } from 'react-native'
 import { forOfStatement } from '@babel/types';
 
@@ -72,7 +73,7 @@ export default class App extends Component<Props> {
   }
   
   foo() {
-    alert('加载完毕')
+    // alert('加载完毕')
   }
 
   render() {
@@ -86,6 +87,13 @@ export default class App extends Component<Props> {
         <Text style={{color:'red', fontSize: 50}}>Hello World</Text>
         <Text style={styles.hd}>Hello World</Text>
         <Text style={[styles.hd, styles.wovert]}>Hello World</Text>
+        <View>
+          <TextInput
+            placeholder='默认值'
+            editable={true}
+            keyboardType='numeric'
+            style={styles.ti}></TextInput>
+        </View>
         <View>
           <Text style={{color: 'red', fontSize: 60}}>{this.state.star}</Text>
         </View>
@@ -102,6 +110,7 @@ export default class App extends Component<Props> {
           <Image
             style={{width: 375, height:200, resizeMode: 'cover'}}
             onLoad={this.foo}
+            keyboardType='numeric'
             source={{uri:'https://img.static.gqsj.cc/tuan/2019-05-21/1558434347_19470.png@576w_1_99q_1o_5-2ci'}}></Image>
           {/* base64位图片 */}
           <Image
@@ -117,6 +126,11 @@ export default class App extends Component<Props> {
 }
 
 const styles = StyleSheet.create({
+  ti: {
+    backgroundColor: 'purple',
+    color: 'yellow',
+    fontSize: 40
+  },
   hd: {
     color: 'green',
     fontSize: 70
