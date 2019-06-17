@@ -6,44 +6,99 @@
  * @flow
  */
 
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import React, {Component} from 'react'
+import {
+  StyleSheet,
+  Text,
+  View
+} from 'react-native'
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
-
-type Props = {};
-export default class App extends Component<Props> {
+// 自定义组件
+class Student extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>你好!</Text>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
+      <View>
+        <Text style={styles.stu}>{this.props.name}</Text>
+        <Text style={styles.stu}>{this.props.age}</Text>
+        <Text style={styles.stu}>{this.props.tel}</Text>
       </View>
-    );
+    )
+  }
+}
+
+type Props = {}
+export default class App extends Component<Props> {
+  constructor () {
+    super()
+    this.state = {
+      time: new Date().toUTCString(),
+      list: [
+        {
+          name: 'wovert',
+          age: 18,
+          tel: '136123456789'
+        },
+        {
+          name: 'lingyima',
+          age: 20,
+          tel: '156123456789'
+        },
+      ]
+    }
+    setTimeout(() => {
+      this.setState(() => {
+        return {
+          list: this.state.list.map((item) => {
+            return {
+              name: item.name + 'xx',
+              age: item.age + 10,
+              tel: item.tel
+            }
+          })
+        }
+      })
+    }, 3000)
+    setInterval(() => {
+      this.setState(() => {
+        return {
+          time: new Date().toUTCString()
+        }
+      })
+    }, 1000)
+  }
+  render() {
+    let concatList =  this.state.list.map((item)=>{
+      return (
+        <Student name={item.name} age={item.age} tel={item.tel} />
+      )
+    })
+    return (
+      <View>
+        <Text style={{color:'red', fontSize: 50}}>Hello World</Text>
+        <Text style={styles.hd}>Hello World</Text>
+        <Text style={[styles.hd, styles.wovert]}>Hello World</Text>
+        <View>
+          <Text>当前时间：{ this.state.time }</Text>
+        </View>
+        <View>
+          { concatList }
+        </View>
+      </View>
+    )
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+  hd: {
+    color: 'green',
+    fontSize: 70
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  wovert: {
+    backgroundColor: 'yellow'    
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+  stu: {
+    fontSize: 30,
+    color: '#000'
+  }
+})
+

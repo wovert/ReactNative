@@ -54,6 +54,9 @@ react-native run-android 项目运行在模拟器上
 
 www.expressvpn.com
 
+- 文件：`local.properties`
+  - 内容：`sdk.dir=D:\\AndroidSDKLocation`
+
 ### adb
 
 > Android debug bridge，用于管理模拟器或真机
