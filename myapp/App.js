@@ -13,7 +13,9 @@ import {
   Image,
   View,
   TextInput,
-  ScrollView
+  ScrollView,
+  FlatList,
+  Dimensions,
 } from 'react-native'
 import { forOfStatement } from '@babel/types';
 
@@ -37,6 +39,23 @@ export default class App extends Component<Props> {
     this.state = {
       star: '★',
       time: new Date().toUTCString(),
+      articles: [
+        // {
+        //   id: '1',
+        //   title: '第1张标题',
+        //   thumb: 'https://img.static.gqsj.cc/tuan/2019-05-21/1558434347_19470.png@576w_1_99q_1o_5-2ci'
+        // },
+        // {
+        //   id: '2',
+        //   title: '第2张标题',
+        //   thumb: 'https://img.static.gqsj.cc/tuan/2019-05-21/1558434347_19470.png@576w_1_99q_1o_5-2ci'
+        // },
+        // {
+        //   id: '3',
+        //   title: '第3张标题',
+        //   thumb: 'https://img.static.gqsj.cc/tuan/2019-05-21/1558434347_19470.png@576w_1_99q_1o_5-2ci'
+        // },
+      ],
       list: [
         {
           name: 'wovert',
@@ -72,10 +91,28 @@ export default class App extends Component<Props> {
       })
     }, 1000)
   }
+
+  componentWillMount() {
+    // 设置state之后，render调用之前之前执行
+    const url = 'http://tao.dev.com/v1/channel/news?page=1'
+    fetch(url).then((data) => {
+      console.log('data>>>>>>>>>>>>>>>>>>>>>>', data)
+      this.setState({
+        articles: JSON.parse(data._bodyInit)
+      })
+    })
+  }
   
   foo() {
     // alert('加载完毕')
   }
+
+  _renderItem = ({item}) => (
+    <View style={styles.item}>
+      {/* <Image source={{uri:item.thumb}} style={styles.ImageUrl[0].url}></Image> */}
+      <Text style={styles.itemTitle}>{item.title}</Text>
+    </View>
+  )
 
   render() {
     let concatList =  this.state.list.map((item)=>{
@@ -120,6 +157,13 @@ export default class App extends Component<Props> {
           <Text style={styles.nav}>美术</Text>
           <Text style={styles.nav}>佛学</Text>
         </ScrollView>
+        <Text>开始</Text>
+        <FlatList
+          data={this.state.articles}
+          renderItem={this._renderItem}
+          numColumns={2}
+        />
+        <Text>结束</Text>
         <Text style={{color:'red', fontSize: 50}}>Hello World</Text>
         <Text style={styles.hd}>Hello World</Text>
         <Text style={[styles.hd, styles.wovert]}>Hello World</Text>
@@ -162,8 +206,25 @@ export default class App extends Component<Props> {
 }
 
 const styles = StyleSheet.create({
+  item: {
+    width: '50%',
+    height: 180,
+    borderColor: 'blue',
+    borderWidth: 1,
+    borderStyle: 'solid',
+    alignItems: 'center'
+  },
+  itemImage: {
+    width: Dimensions.get('window').width/2*0.8, // 屏幕宽度
+    height: Dimensions.get('window').width/2*0.8*9/16,
+  },
+  itemTitle: {
+    color: '#000',
+    fontSize: 25,
+    marginTop: 10
+  },
   navWrapper: {
-    borderWidth: 2,
+    // borderWidth: 2,
     borderColor: 'blue',
     borderStyle: 'solid',
     height: 70,
