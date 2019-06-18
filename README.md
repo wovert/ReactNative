@@ -75,3 +75,37 @@ adb服务器与所有正在运行的模拟器和真机连接。它通过扫描55
 使用Android命令的前提条件，一定要将`sdk\tools`目录放到环境变量中。
 
 使用`android -h`获取帮助信息。`android list device`和`adb devices`输出的内容不一致，应该是 android 输出的并不是已经运行的设备，而是其能创建虚拟机的设备列表，使用eclipse创建虚拟机的时候，可以选择的那个列表。另外android命令执行的时间比较长。android命令没有特别去操作，只是在网上看到很多人写的博客中都有android命令，但是自己用的时候却提示不是内部或外部命令。所以将使用android命令的前提写出来。
+
+## npm 设置代理代理
+
+```sh
+设置代理
+npm config set proxy http://127.0.0.1:1080
+npm config set https-proxy http://127.0.0.1:1080
+
+删除代理
+npm config rm proxy
+npm config rm https-proxy
+```
+
+## 服务器宝塔
+
+[bt.cn](https://www.bt.cn)
+
+### 阿里云设置ftp
+
+- 授权策略 | 协议类型 | 端口范围 | 授权类型 | 授权对象
+- 允许 | TCP | 1000/9000 | 地址段访问 | 0.0.0.0/0
+- 允许 | TCP | 30000/60000 | 地址段访问 | 0.0.0.0/0
+- 允许 | TCP | 21/21 | 地址段访问 | 0.0.0.0/0
+- 允许 | TCP | 22/22 | 地址段访问 | 0.0.0.0/0
+
+## ScrollView 组件
+
+> 滚动的容器，可以在其中放入多个组件和视图。垂直滚动或水平滚动
+
+- property
+  - horizontal={true}
+- method
+
+## FlatList 组件

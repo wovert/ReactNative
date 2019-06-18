@@ -12,7 +12,8 @@ import {
   Text,
   Image,
   View,
-  TextInput
+  TextInput,
+  ScrollView
 } from 'react-native'
 import { forOfStatement } from '@babel/types';
 
@@ -20,11 +21,11 @@ import { forOfStatement } from '@babel/types';
 class Student extends Component {
   render() {
     return (
-      <View>
+      <ScrollView>
         <Text style={styles.stu}>{this.props.name}</Text>
         <Text style={styles.stu}>{this.props.age}</Text>
         <Text style={styles.stu}>{this.props.tel}</Text>
-      </View>
+      </ScrollView>
     )
   }
 }
@@ -79,17 +80,52 @@ export default class App extends Component<Props> {
   render() {
     let concatList =  this.state.list.map((item)=>{
       return (
-        <Student name={item.name} age={item.age} tel={item.tel} />
+        <Student key={item.name} name={item.name} age={item.age} tel={item.tel} />
       )
     })
     return (
-      <View>
+      <ScrollView onScroll={()=>console.log('滚动啦')}>
+        <ScrollView
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          onScroll={()=>console.log('头部滚动')}
+          style={styles.navWrapper}
+          contentContainerStyle={styles.navContainer}
+        >
+          <Text style={styles.nav}>首页</Text>
+          <Text style={styles.nav}>体育</Text>
+          <Text style={styles.nav}>热点</Text>
+          <Text style={styles.nav}>新闻</Text>
+          <Text style={styles.nav}>国际</Text>
+          <Text style={styles.nav}>音乐</Text>
+          <Text style={styles.nav}>娱乐</Text>
+          <Text style={styles.nav}>贸易</Text>
+          <Text style={styles.nav}>足球</Text>
+          <Text style={styles.nav}>篮球</Text>
+          <Text style={styles.nav}>小说</Text>
+          <Text style={styles.nav}>文学</Text>
+          <Text style={styles.nav}>艺术</Text>
+          <Text style={styles.nav}>美术</Text>
+          <Text style={styles.nav}>佛学</Text>
+          <Text style={styles.nav}>新闻</Text>
+          <Text style={styles.nav}>国际</Text>
+          <Text style={styles.nav}>音乐</Text>
+          <Text style={styles.nav}>娱乐</Text>
+          <Text style={styles.nav}>贸易</Text>
+          <Text style={styles.nav}>足球</Text>
+          <Text style={styles.nav}>篮球</Text>
+          <Text style={styles.nav}>小说</Text>
+          <Text style={styles.nav}>文学</Text>
+          <Text style={styles.nav}>艺术</Text>
+          <Text style={styles.nav}>美术</Text>
+          <Text style={styles.nav}>佛学</Text>
+        </ScrollView>
         <Text style={{color:'red', fontSize: 50}}>Hello World</Text>
         <Text style={styles.hd}>Hello World</Text>
         <Text style={[styles.hd, styles.wovert]}>Hello World</Text>
         <View>
           <TextInput
-            placeholder='默认值'
+            placeholder='默认值000'
             editable={true}
             keyboardType='numeric'
             style={styles.ti}></TextInput>
@@ -120,12 +156,27 @@ export default class App extends Component<Props> {
         <View>
           { concatList }
         </View>
-      </View>
+      </ScrollView>
     )
   }
 }
 
 const styles = StyleSheet.create({
+  navWrapper: {
+    borderWidth: 2,
+    borderColor: 'blue',
+    borderStyle: 'solid',
+    height: 70,
+  },
+  navContainer: {
+    alignItems: 'center'
+  },
+  nav: {
+    fontSize: 20,
+    color: 'rgba(0,0,0,0.6)',
+    paddingLeft: 20,
+    paddingRight: 20
+  },
   ti: {
     backgroundColor: 'purple',
     color: 'yellow',
